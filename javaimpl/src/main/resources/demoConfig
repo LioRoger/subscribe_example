@@ -1,0 +1,30 @@
+# User name
+user=1k1r9ljx74j76
+
+#Password
+password=1iey9qsu3kvoi
+
+#GroupID
+sid=qeexktltmbtu1
+
+#Consumer group general same with sid
+group=qeexktltmbt
+
+#Kafka topic to consume
+kafkaTopic=cn_shanghai_11.161.33.41_3306_root
+
+#Kafka broker url
+broker=11.163.186.193:17013
+
+#init checkpoint
+checkpoint=1560977122
+
+# If boot use checkpoint value to seek offset, if false checkpoint will retrieve from kafka or local store
+# Simple use this config to reset demo checkpoint.
+useConfigCheckpoint=false
+
+# SubscribeMode decide we use assign or subscribe function, Option value is [assign] or [subscribe]
+# If in assign mode, kafka consumer group will not enabled. But we can  commit checkpoint to kafka manually with given groupID.
+# If in subscribe mode, config [group] is required. Multi client with same groupID will build a standby(HA) consume system.
+# In subscribe mode, auto commit should also be disabled. Partition assign and revoke should be notified.
+subscribeMode=assign
