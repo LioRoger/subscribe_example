@@ -7,6 +7,19 @@
  3. 反序列之后的数据如何获取前后镜像和一些属性(boot/MysqlRecordPrinter)
  4. 数据的列如何格式化成指定的格式(recordprocessor/mysql/*)
 
+使用的时候请替换
+ properties.setProperty(USER_NAME, "your user name");
+ properties.setProperty(PASSWORD_NAME, "your password");
+ properties.setProperty(SID_NAME, "your sid");
+ // kafka consumer group general same with sid
+ properties.setProperty(GROUP_NAME, "your sid");
+ // topic to consume, partition is 0
+ properties.setProperty(KAFKA_TOPIC, "your topic");
+ // kafka broker url
+ properties.setProperty(KAFKA_BROKER_URL_NAME, "your broker url");
+ // initial checkpoint for first seek
+ properties.setProperty(INITIAL_CHECKPOINT_NAME, "your first start timestamp");
+
 当前的demo只针对了DStore增量的数据格式做了解析，如果您是同步到kafka，然后订阅的自建kafka，可能存在全量数据，全量类型是INIT，当前demo暂时不支持。
 
 程序的流程将读取和消费分离开来。由于consumer不是线程安全的，因此读取单线程操作consumer，包括调用poll函数和commitoffset函数

@@ -36,17 +36,17 @@ public class NotifyDemo {
     public static Properties getConfigs() {
         Properties properties = new Properties();
         // user password and sid for auth
-        properties.setProperty(USER_NAME, "1k1r9ljx74j76");
-        properties.setProperty(PASSWORD_NAME, "1iey9qsu3kvoi");
-        properties.setProperty(SID_NAME, "qeexktltmbtu1");
+        properties.setProperty(USER_NAME, "your user name");
+        properties.setProperty(PASSWORD_NAME, "your password");
+        properties.setProperty(SID_NAME, "your sid");
         // kafka consumer group general same with sid
-        properties.setProperty(GROUP_NAME, "qeexktltmbtu1");
+        properties.setProperty(GROUP_NAME, "your sid");
         // topic to consume, partition is 0
-        properties.setProperty(KAFKA_TOPIC, "cn_shanghai_11.161.33.41_3306_root");
+        properties.setProperty(KAFKA_TOPIC, "your topic");
         // kafka broker url
-        properties.setProperty(KAFKA_BROKER_URL_NAME, "11.163.186.193:17013");
+        properties.setProperty(KAFKA_BROKER_URL_NAME, "your broker url");
         // initial checkpoint for first seek
-        properties.setProperty(INITIAL_CHECKPOINT_NAME, "1560977122");
+        properties.setProperty(INITIAL_CHECKPOINT_NAME, "start timestamp");
         // if force use config checkpoint when start. for checkpoint reset
         properties.setProperty(USE_CONFIG_CHECKPOINT_NAME, "false");
         // use consumer assign or subscribe interface
