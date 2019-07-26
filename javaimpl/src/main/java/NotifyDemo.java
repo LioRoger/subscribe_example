@@ -48,7 +48,7 @@ public class NotifyDemo {
         // initial checkpoint for first seek
         properties.setProperty(INITIAL_CHECKPOINT_NAME, "start timestamp");
         // if force use config checkpoint when start. for checkpoint reset
-        properties.setProperty(USE_CONFIG_CHECKPOINT_NAME, "false");
+        properties.setProperty(USE_CONFIG_CHECKPOINT_NAME, "true");
         // use consumer assign or subscribe interface
         // when use subscribe mode, group config is required. kafka consumer group is enabled
         properties.setProperty(SUBSCRIBE_MODE_NAME, "assign");
