@@ -49,8 +49,9 @@ public class EtlRecordProcessor implements  Runnable, Closeable {
         fastDeserializer = new AvroDeserializer();
         this.context = context;
         commitCheckpoint = new Checkpoint(null, -1, -1, "-1");
-        commitThread = getCommitThread();
-        commitThread.start();
+        //取消通过loop 每5秒提交
+//        commitThread = getCommitThread();
+//        commitThread.start();
     }
 
 
@@ -71,7 +72,6 @@ public class EtlRecordProcessor implements  Runnable, Closeable {
                 if (existed) {
                     return;
                 }
-                fetchFailedCount = 0;
                 final ConsumerRecord<byte[], byte[]> consumerRecord = toProcess;
                 record = fastDeserializer.deserialize(consumerRecord.value());
                 log.debug("EtlRecordProcessor: meet [{}] record type", record.getOperation());
@@ -80,6 +80,8 @@ public class EtlRecordProcessor implements  Runnable, Closeable {
                         @Override
                         public void commit(TopicPartition tp, Record commitRecord, long offset, String metadata) {
                             commitCheckpoint = new Checkpoint(tp, commitRecord.getSourceTimestamp(), offset, metadata);
+                            //用户提交后直接调用 EtlRecordProcessor.this.commit(); 防止关闭时服务时，丢失提交 导致重启后重复消费
+                            EtlRecordProcessor.this.commit();
                         }
                     }));
                 }
@@ -112,17 +114,17 @@ public class EtlRecordProcessor implements  Runnable, Closeable {
         commitThread.stop();
     }
 
-    private WorkThread getCommitThread() {
-        WorkThread workThread = new WorkThread(new Runnable() {
-            @Override
-            public void run() {
-                while (!existed) {
-                    sleepMS(5000);
-                    commit();
-                }
-            }
-        });
-        return workThread;
-    }
+//    private WorkThread getCommitThread() {
+//        WorkThread workThread = new WorkThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (!existed) {
+//                    sleepMS(5000);
+//                    commit();
+//                }
+//            }
+//        });
+//        return workThread;
+//    }
 
 }

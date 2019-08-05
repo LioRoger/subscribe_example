@@ -72,8 +72,7 @@ public class RecordGenerator implements Runnable, Closeable {
             try {
                 kafkaConsumerWrap = getConsumerWrap(message);
                 while (!existed) {
-                    // kafka consumer is not threadsafe, so if you want commit checkpoint to kafka, commit it in same thread
-                    mayCommitCheckpoint();
+
                     ConsumerRecords<byte[], byte[]> records = kafkaConsumerWrap.poll();
                     for (ConsumerRecord<byte[], byte[]> record : records) {
                         int offerTryCount = 0;
@@ -87,7 +86,9 @@ public class RecordGenerator implements Runnable, Closeable {
                             }
                         }
                     }
-
+                    //移动提交位置到尾部，确保在调用close方法后 先commit后提交
+                    // kafka consumer is not threadsafe, so if you want commit checkpoint to kafka, commit it in same thread
+                    mayCommitCheckpoint();
                 }
             } catch (Throwable e) {
                 if (isErrorRecoverable(e) && haveTryTime++ < tryTime) {
