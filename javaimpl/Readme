@@ -1,0 +1,58 @@
+程序入口在src/main/java/NotifyDemo
+
+这个示例展示了如何使用新版订阅从DTS获取数据并且解析数据。
+整个的流程包含了
+ 1. 使用原生的kafka consumer从DTS获取增量数据(recordgenerator/*)
+ 2. 获取到数据之后如何使用DTS提供的avro格式反序列化DTS的数据。(boot/MysqlRecordPrinter)
+ 3. 反序列之后的数据如何获取前后镜像和一些属性(boot/MysqlRecordPrinter)
+ 4. 数据的列如何格式化成指定的格式(recordprocessor/mysql/*)
+
+使用的时候请替换
+ properties.setProperty(USER_NAME, "your user name");
+ properties.setProperty(PASSWORD_NAME, "your password");
+ properties.setProperty(SID_NAME, "your sid");
+ // kafka consumer group general same with sid
+ properties.setProperty(GROUP_NAME, "your sid");
+ // topic to consume, partition is 0
+ properties.setProperty(KAFKA_TOPIC, "your topic");
+ // kafka broker url
+ properties.setProperty(KAFKA_BROKER_URL_NAME, "your broker url");
+ // initial checkpoint for first seek
+ properties.setProperty(INITIAL_CHECKPOINT_NAME, "your first start timestamp");
+
+当前的demo只针对了DStore增量的数据格式做了解析，如果您是同步到kafka，然后订阅的自建kafka，可能存在全量数据，全量类型是INIT，当前demo没有处理全量数据。
+注意，不管是全量数据还是增量数据，对于beforeImage和afterImage中的顺序都没有保证和源端数据库是一致的，用户使用的时候需要对应指定的表，使用指定字段值来获取指定的值
+
+MysqlRecordPrinter 类中实现了如何将record转换成String，用户使用到的话可以将record转换为Map来获取对应的列
+
+class Field {
+    final String name;
+    final String encoding;
+    final Value beforeValue;
+    final Value afterValue;
+}
+类似的结构类保存前后镜像值,demo里面没有做具体实现
+
+程序的流程将读取和消费分离开来。由于consumer不是线程安全的，因此读取单线程操作consumer，包括调用poll函数和commitoffset函数
+etl消费之后调用commit函数
+当前demo的commit策略是内存位点定时commit到文件和远端
+
+com.alibaba.dts.formats.avro 这个package是由avro的shcema编译而来的
+具体做法
+ java -jar avro-tools-1.8.2.jar compile -string schema $yourPath/Record.avsc .
+ 生成com.alibaba.dts.formats.avro这个package请拷贝到对应的工程下面，当前工程直接放在了根目录下面
+
+当前的版本我们对于group commit的一些操作做了限制
+1. 用户使用的group id 必须和他的sid相同，否则调用commit offset或者后台的join group, sync group, heartbeat group, exit group 都会报 invalid group的错误
+2. auto commit 功能被服务端禁止了，为了防止无意的commit导致数据丢失。如果您启用了auto commit,那么会有 invalid group异常 (auto commit 的consuemr会在close 和 revoke的时候主动提交位点)
+3. 用户手动提交位点，OffsetAndMetada里面的metada必须按照  timestamp|your meta 这种格式。
+   timestamp就是Record里面的  getSourceTimestamp()接口返回的整形值。 比如您消费到了 Wed Jul 10 10:54:57 CST 2019 , 您提交的metadata可以是 "1562727297" 或者是 "1562727297|mymeta" 类似
+   服务端拿到metadata之后会按照 "|"做切割，拿到前面的数字当做用户commit的timestamp，这个 timestamp(1562727297)非常重要，如果我们后端发生了容灾，ClusterSwitchListener会感知到clusterid的变化
+   这个会使得当前consuemr失败。重建consumer的同时伴随了offset fetch的操作，会重新设置位点。我们再新的cluster创建的过程中，会将用户的这个timestamp对应的位点 提交到新的cluster上，这样就使得用户的保存
+   信息连续化了。(这就是我们为什么要限制用户行为的原因，因为后端可能会产生容灾)
+
+下面是我们推荐的一些做法：
+    1.使用timestamp来获取位点。
+    2.手动conmmit位点，禁用auto_commit
+    3.注册ClusterSwitchListener 感知cluster的切换，从而重新使用timestamp来定位offset
+
