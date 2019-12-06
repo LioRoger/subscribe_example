@@ -20,6 +20,8 @@
  // initial checkpoint for first seek
  properties.setProperty(INITIAL_CHECKPOINT_NAME, "your first start timestamp");
 
+具体对应信息请查看dts_console_info.jpg对应的信息, 使用前请检查到KAFKA_BROKER_URL_NAME的连通性(ping或者telnet) 验证联通问题
+
 当前的demo只针对了DStore增量的数据格式做了解析，如果您是同步到kafka，然后订阅的自建kafka，可能存在全量数据，全量类型是INIT，当前demo没有处理全量数据。
 注意，不管是全量数据还是增量数据，对于beforeImage和afterImage中的顺序都没有保证和源端数据库是一致的，用户使用的时候需要对应指定的表，使用指定字段值来获取指定的值
 
