@@ -4,6 +4,8 @@ import com.alibaba.dts.formats.avro.Field;
 import recordprocessor.FieldConverter;
 import recordprocessor.FieldValue;
 
+import java.nio.ByteBuffer;
+
 import static java.nio.charset.StandardCharsets.*;
 
 public class MysqlFieldConverter implements FieldConverter {
@@ -311,7 +313,7 @@ public class MysqlFieldConverter implements FieldConverter {
             FieldValue fieldValue = new FieldValue();
             if (null != data) {
                 com.alibaba.dts.formats.avro.Character character = (com.alibaba.dts.formats.avro.Character) data;
-                fieldValue.setValue(character.getValue().array());
+                fieldValue.setValue(getBytes(character.getValue()));
                 fieldValue.setEncoding(character.getCharset());
             } else {
                 fieldValue.setEncoding("ASCII");
@@ -328,7 +330,7 @@ public class MysqlFieldConverter implements FieldConverter {
             FieldValue fieldValue = new FieldValue();
             if (null != data) {
                 com.alibaba.dts.formats.avro.BinaryGeometry geometry = (com.alibaba.dts.formats.avro.BinaryGeometry) data;
-                fieldValue.setValue(geometry.getValue().array());
+                fieldValue.setValue(getBytes(geometry.getValue()));
             }
             return fieldValue;
         }
@@ -342,7 +344,7 @@ public class MysqlFieldConverter implements FieldConverter {
             FieldValue fieldValue = new FieldValue();
             if (null != data) {
                 com.alibaba.dts.formats.avro.BinaryObject binaryObject = (com.alibaba.dts.formats.avro.BinaryObject) data;
-                fieldValue.setValue(binaryObject.getValue().array());
+                fieldValue.setValue(getBytes(binaryObject.getValue()));
             }
             return fieldValue;
         }
@@ -362,5 +364,11 @@ public class MysqlFieldConverter implements FieldConverter {
             fieldValue.setEncoding("UTF8");
             return fieldValue;
         }
+    }
+
+    static byte[] getBytes(ByteBuffer origin) {
+        byte[] ret = new byte[origin.remaining()];
+        origin.get(ret);
+        return ret;
     }
 }
