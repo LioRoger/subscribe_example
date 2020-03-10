@@ -58,3 +58,5 @@ com.alibaba.dts.formats.avro 这个package是由avro的shcema编译而来的
     2.手动conmmit位点，禁用auto_commit
     3.注册ClusterSwitchListener 感知cluster的切换，从而重新使用timestamp来定位offset
 
+编译独立的jar包，在java的pom.xml平级目录下运行
+mvn clean assembly:assembly -Dmaven.test.skip=true
