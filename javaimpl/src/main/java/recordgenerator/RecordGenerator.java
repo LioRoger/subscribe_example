@@ -119,7 +119,8 @@ public class RecordGenerator implements Runnable, Closeable {
     private ConsumerWrap getConsumerWrap(String message) {
         ConsumerWrap kafkaConsumerWrap = getConsumerWrap();
         Checkpoint checkpoint = null;
-        metaStoreCenter.registerStore(KAFKA_STORE_NAME, new KafkaMetaStore(kafkaConsumerWrap.getRawConsumer()));
+        // we encourage  user impl their own checkpoint store, but plan b is also  supported
+//        metaStoreCenter.registerStore(KAFKA_STORE_NAME, new KafkaMetaStore(kafkaConsumerWrap.getRawConsumer()));
         if (useCheckpointConfig.compareAndSet(true, false)) {
             log.info("RecordGenerator: force use initial checkpoint [{}] to start", checkpoint);
             checkpoint = initialCheckpoint;

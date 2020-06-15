@@ -2,11 +2,12 @@ package main
 
 import (
 	"bytes"
+	//this is package you build in local space
+	"dtsavro"
 	"fmt"
 	"github.com/Shopify/sarama"
-	"github.com/actgardner/gogen-avro/compiler"
-	"github.com/actgardner/gogen-avro/dts/avro"
-	"github.com/actgardner/gogen-avro/vm"
+	"github.com/actgardner/gogen-avro/v7/compiler"
+	"github.com/actgardner/gogen-avro/v7/vm"
 	cluster "github.com/bsm/sarama-cluster"
 	"io"
 	"os"
@@ -57,7 +58,7 @@ func main() {
 	}()
 
 	// Pre compile schema of avro
-	t := avro.NewRecord()
+	t := dtsavro.NewRecord()
 	deser, err := compiler.CompileSchemaBytes([]byte(t.Schema()), []byte(t.Schema()))
 	if err != nil {
 		panic(err)
@@ -69,7 +70,7 @@ func main() {
 			if ok {
 				fmt.Fprintf(os.Stdout, "%s/%d/%d\t%s\t%s\n", msg.Topic, msg.Partition, msg.Offset, msg.Key)
 				r = bytes.NewReader(msg.Value)
-				t = avro.NewRecord()
+				t = dtsavro.NewRecord()
 				if err = vm.Eval(r, deser, t); err != nil {
 					panic(err)
 				}
@@ -77,13 +78,9 @@ func main() {
 				for _, j := range t.Fields.ArrayField {
 					fmt.Println(j.Name, j.DataTypeNumber)
 				}
-				for _, i := range t.AfterImages.ArrayUnionNullIntegerCharacterDecimalFloatTimestampDateTimeTimestampWithTimeZoneBinaryGeometryTextGeometryBinaryObjectTextObjectEmptyObject {
-				}
-
 			}
 		case <-signals:
 			return
 		}
 	}
 }
-

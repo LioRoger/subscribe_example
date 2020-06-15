@@ -59,6 +59,8 @@ public class AtomicFileStore {
                 swallowErrorClose(fileWriter);
                 swallowErrorClose(bufferedWriter);
             }
+            // BugFix: windows can't rename file to existing file, remove old file first
+            remove();
             return writeSuccess ? (new File(tmpFileName).renameTo(new File(fileName))) : false;
         }
     }

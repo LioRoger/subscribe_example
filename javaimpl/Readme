@@ -60,3 +60,6 @@ com.alibaba.dts.formats.avro 这个package是由avro的shcema编译而来的
 
 编译独立的jar包，在java的pom.xml平级目录下运行
 mvn clean assembly:assembly -Dmaven.test.skip=true
+
+AvroDeserializer 里面的decoder一定不可以重用，这会导致如果上游的avro格式做了变更，比如加字段，重用的decoder会造成内存decodebuffer的复用，导致解析上下文错乱，在blink的使用场景中
+遇到过这个问题，会导致不可恢复的OOM。
