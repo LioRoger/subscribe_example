@@ -13,8 +13,8 @@ import org.apache.avro.message.SchemaStore;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Record extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -266665134822314238L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Record\",\"namespace\":\"com.alibaba.dts.formats.avro\",\"fields\":[{\"name\":\"version\",\"type\":\"int\",\"doc\":\"version infomation\"},{\"name\":\"id\",\"type\":\"long\",\"doc\":\"unique id of this record in the whole stream\"},{\"name\":\"sourceTimestamp\",\"type\":\"long\",\"doc\":\"record log timestamp\"},{\"name\":\"sourcePosition\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"record source location information\"},{\"name\":\"safeSourcePosition\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"safe record source location information, use to recovery.\",\"default\":\"\"},{\"name\":\"sourceTxid\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"record transation id\",\"default\":\"\"},{\"name\":\"source\",\"type\":{\"type\":\"record\",\"name\":\"Source\",\"fields\":[{\"name\":\"sourceType\",\"type\":{\"type\":\"enum\",\"name\":\"SourceType\",\"symbols\":[\"MySQL\",\"Oracle\",\"SQLServer\",\"PostgreSQL\",\"MongoDB\",\"Redis\",\"DB2\",\"PPAS\",\"DRDS\",\"HBASE\",\"HDFS\",\"FILE\",\"OTHER\"]}},{\"name\":\"version\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"source datasource version information\"}]},\"doc\":\"source dataource\"},{\"name\":\"operation\",\"type\":{\"type\":\"enum\",\"name\":\"Operation\",\"symbols\":[\"INSERT\",\"UPDATE\",\"DELETE\",\"DDL\",\"BEGIN\",\"COMMIT\",\"ROLLBACK\",\"ABORT\",\"HEARTBEAT\",\"CHECKPOINT\",\"COMMAND\",\"FILL\",\"FINISH\",\"CONTROL\",\"RDB\",\"NOOP\",\"INIT\"]},\"namespace\":\"com.alibaba.dts.formats.avro\"},{\"name\":\"objectName\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"processTimestamps\",\"type\":[\"null\",{\"type\":\"array\",\"items\":\"long\"}],\"doc\":\"time when this record is processed along the stream dataflow\",\"default\":null},{\"name\":\"tags\",\"type\":{\"type\":\"map\",\"values\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"avro.java.string\":\"String\"},\"doc\":\"tags to identify properties of this record\",\"default\":{}},{\"name\":\"fields\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"},{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Field\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"dataTypeNumber\",\"type\":\"int\"}]}}],\"default\":null},{\"name\":\"beforeImages\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"},{\"type\":\"array\",\"items\":[\"null\",{\"type\":\"record\",\"name\":\"Integer\",\"fields\":[{\"name\":\"precision\",\"type\":\"int\"},{\"name\":\"value\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]},{\"type\":\"record\",\"name\":\"Character\",\"fields\":[{\"name\":\"charset\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":\"bytes\"}]},{\"type\":\"record\",\"name\":\"Decimal\",\"fields\":[{\"name\":\"value\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"precision\",\"type\":\"int\"},{\"name\":\"scale\",\"type\":\"int\"}]},{\"type\":\"record\",\"name\":\"Float\",\"fields\":[{\"name\":\"value\",\"type\":\"double\"},{\"name\":\"precision\",\"type\":\"int\"},{\"name\":\"scale\",\"type\":\"int\"}]},{\"type\":\"record\",\"name\":\"Timestamp\",\"fields\":[{\"name\":\"timestamp\",\"type\":\"long\"},{\"name\":\"millis\",\"type\":\"int\"}]},{\"type\":\"record\",\"name\":\"DateTime\",\"fields\":[{\"name\":\"year\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"month\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"day\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"hour\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"minute\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"second\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"millis\",\"type\":[\"null\",\"int\"],\"default\":null}]},{\"type\":\"record\",\"name\":\"TimestampWithTimeZone\",\"fields\":[{\"name\":\"value\",\"type\":\"DateTime\"},{\"name\":\"timezone\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]},{\"type\":\"record\",\"name\":\"BinaryGeometry\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":\"bytes\"}]},{\"type\":\"record\",\"name\":\"TextGeometry\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]},{\"type\":\"record\",\"name\":\"BinaryObject\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":\"bytes\"}]},{\"type\":\"record\",\"name\":\"TextObject\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]},{\"type\":\"enum\",\"name\":\"EmptyObject\",\"symbols\":[\"NULL\",\"NONE\"]}]}],\"default\":null},{\"name\":\"afterImages\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"},{\"type\":\"array\",\"items\":[\"null\",\"Integer\",\"Character\",\"Decimal\",\"Float\",\"Timestamp\",\"DateTime\",\"TimestampWithTimeZone\",\"BinaryGeometry\",\"TextGeometry\",\"BinaryObject\",\"TextObject\",\"EmptyObject\"]}],\"default\":null}]}");
+  private static final long serialVersionUID = -5842551457902705544L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Record\",\"namespace\":\"com.alibaba.dts.formats.avro\",\"fields\":[{\"name\":\"version\",\"type\":\"int\",\"doc\":\"version infomation\"},{\"name\":\"id\",\"type\":\"long\",\"doc\":\"unique id of this record in the whole stream\"},{\"name\":\"sourceTimestamp\",\"type\":\"long\",\"doc\":\"record log timestamp\"},{\"name\":\"sourcePosition\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"record source location information\"},{\"name\":\"safeSourcePosition\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"safe record source location information, use to recovery.\",\"default\":\"\"},{\"name\":\"sourceTxid\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"record transation id\",\"default\":\"\"},{\"name\":\"source\",\"type\":{\"type\":\"record\",\"name\":\"Source\",\"fields\":[{\"name\":\"sourceType\",\"type\":{\"type\":\"enum\",\"name\":\"SourceType\",\"symbols\":[\"MySQL\",\"Oracle\",\"SQLServer\",\"PostgreSQL\",\"MongoDB\",\"Redis\",\"DB2\",\"PPAS\",\"DRDS\",\"HBASE\",\"HDFS\",\"FILE\",\"OTHER\"]}},{\"name\":\"version\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"source datasource version information\"}]},\"doc\":\"source dataource\"},{\"name\":\"operation\",\"type\":{\"type\":\"enum\",\"name\":\"Operation\",\"symbols\":[\"INSERT\",\"UPDATE\",\"DELETE\",\"DDL\",\"BEGIN\",\"COMMIT\",\"ROLLBACK\",\"ABORT\",\"HEARTBEAT\",\"CHECKPOINT\",\"COMMAND\",\"FILL\",\"FINISH\",\"CONTROL\",\"RDB\",\"NOOP\",\"INIT\"]},\"namespace\":\"com.alibaba.dts.formats.avro\"},{\"name\":\"objectName\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"processTimestamps\",\"type\":[\"null\",{\"type\":\"array\",\"items\":\"long\"}],\"doc\":\"time when this record is processed along the stream dataflow\",\"default\":null},{\"name\":\"tags\",\"type\":{\"type\":\"map\",\"values\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"avro.java.string\":\"String\"},\"doc\":\"tags to identify properties of this record\",\"default\":{}},{\"name\":\"fields\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"},{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Field\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"dataTypeNumber\",\"type\":\"int\"}]}}],\"default\":null},{\"name\":\"beforeImages\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"},{\"type\":\"array\",\"items\":[\"null\",{\"type\":\"record\",\"name\":\"Integer\",\"fields\":[{\"name\":\"precision\",\"type\":\"int\"},{\"name\":\"value\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]},{\"type\":\"record\",\"name\":\"Character\",\"fields\":[{\"name\":\"charset\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":\"bytes\"}]},{\"type\":\"record\",\"name\":\"Decimal\",\"fields\":[{\"name\":\"value\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"precision\",\"type\":\"int\"},{\"name\":\"scale\",\"type\":\"int\"}]},{\"type\":\"record\",\"name\":\"Float\",\"fields\":[{\"name\":\"value\",\"type\":\"double\"},{\"name\":\"precision\",\"type\":\"int\"},{\"name\":\"scale\",\"type\":\"int\"}]},{\"type\":\"record\",\"name\":\"Timestamp\",\"fields\":[{\"name\":\"timestamp\",\"type\":\"long\"},{\"name\":\"millis\",\"type\":\"int\"}]},{\"type\":\"record\",\"name\":\"DateTime\",\"fields\":[{\"name\":\"year\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"month\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"day\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"hour\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"minute\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"second\",\"type\":[\"null\",\"int\"],\"default\":null},{\"name\":\"millis\",\"type\":[\"null\",\"int\"],\"default\":null}]},{\"type\":\"record\",\"name\":\"TimestampWithTimeZone\",\"fields\":[{\"name\":\"value\",\"type\":\"DateTime\"},{\"name\":\"timezone\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]},{\"type\":\"record\",\"name\":\"BinaryGeometry\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":\"bytes\"}]},{\"type\":\"record\",\"name\":\"TextGeometry\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]},{\"type\":\"record\",\"name\":\"BinaryObject\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":\"bytes\"}]},{\"type\":\"record\",\"name\":\"TextObject\",\"fields\":[{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]},{\"type\":\"enum\",\"name\":\"EmptyObject\",\"symbols\":[\"NULL\",\"NONE\"]}]}],\"default\":null},{\"name\":\"afterImages\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"},{\"type\":\"array\",\"items\":[\"null\",\"Integer\",\"Character\",\"Decimal\",\"Float\",\"Timestamp\",\"DateTime\",\"TimestampWithTimeZone\",\"BinaryGeometry\",\"TextGeometry\",\"BinaryObject\",\"TextObject\",\"EmptyObject\"]}],\"default\":null},{\"name\":\"bornTimestamp\",\"type\":\"long\",\"doc\":\"the timestamp in unit of millisecond that record is born in source\",\"default\":0}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -74,6 +74,8 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
   @Deprecated public java.lang.Object fields;
   @Deprecated public java.lang.Object beforeImages;
   @Deprecated public java.lang.Object afterImages;
+  /** the timestamp in unit of millisecond that record is born in source */
+  @Deprecated public long bornTimestamp;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -98,8 +100,9 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
    * @param fields The new value for fields
    * @param beforeImages The new value for beforeImages
    * @param afterImages The new value for afterImages
+   * @param bornTimestamp the timestamp in unit of millisecond that record is born in source
    */
-  public Record(java.lang.Integer version, java.lang.Long id, java.lang.Long sourceTimestamp, java.lang.String sourcePosition, java.lang.String safeSourcePosition, java.lang.String sourceTxid, com.alibaba.dts.formats.avro.Source source, com.alibaba.dts.formats.avro.Operation operation, java.lang.String objectName, java.util.List<java.lang.Long> processTimestamps, java.util.Map<java.lang.String,java.lang.String> tags, java.lang.Object fields, java.lang.Object beforeImages, java.lang.Object afterImages) {
+  public Record(java.lang.Integer version, java.lang.Long id, java.lang.Long sourceTimestamp, java.lang.String sourcePosition, java.lang.String safeSourcePosition, java.lang.String sourceTxid, com.alibaba.dts.formats.avro.Source source, com.alibaba.dts.formats.avro.Operation operation, java.lang.String objectName, java.util.List<java.lang.Long> processTimestamps, java.util.Map<java.lang.String,java.lang.String> tags, java.lang.Object fields, java.lang.Object beforeImages, java.lang.Object afterImages, java.lang.Long bornTimestamp) {
     this.version = version;
     this.id = id;
     this.sourceTimestamp = sourceTimestamp;
@@ -114,6 +117,7 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
     this.fields = fields;
     this.beforeImages = beforeImages;
     this.afterImages = afterImages;
+    this.bornTimestamp = bornTimestamp;
   }
 
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
@@ -134,6 +138,7 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
     case 11: return fields;
     case 12: return beforeImages;
     case 13: return afterImages;
+    case 14: return bornTimestamp;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -156,6 +161,7 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
     case 11: fields = (java.lang.Object)value$; break;
     case 12: beforeImages = (java.lang.Object)value$; break;
     case 13: afterImages = (java.lang.Object)value$; break;
+    case 14: bornTimestamp = (java.lang.Long)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -394,6 +400,23 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
   }
 
   /**
+   * Gets the value of the 'bornTimestamp' field.
+   * @return the timestamp in unit of millisecond that record is born in source
+   */
+  public java.lang.Long getBornTimestamp() {
+    return bornTimestamp;
+  }
+
+  /**
+   * Sets the value of the 'bornTimestamp' field.
+   * the timestamp in unit of millisecond that record is born in source
+   * @param value the value to set.
+   */
+  public void setBornTimestamp(java.lang.Long value) {
+    this.bornTimestamp = value;
+  }
+
+  /**
    * Creates a new Record RecordBuilder.
    * @return A new Record RecordBuilder
    */
@@ -449,6 +472,8 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
     private java.lang.Object fields;
     private java.lang.Object beforeImages;
     private java.lang.Object afterImages;
+    /** the timestamp in unit of millisecond that record is born in source */
+    private long bornTimestamp;
 
     /** Creates a new Builder */
     private Builder() {
@@ -520,6 +545,10 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
         this.afterImages = data().deepCopy(fields()[13].schema(), other.afterImages);
         fieldSetFlags()[13] = true;
       }
+      if (isValidValue(fields()[14], other.bornTimestamp)) {
+        this.bornTimestamp = data().deepCopy(fields()[14].schema(), other.bornTimestamp);
+        fieldSetFlags()[14] = true;
+      }
     }
 
     /**
@@ -584,6 +613,10 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
       if (isValidValue(fields()[13], other.afterImages)) {
         this.afterImages = data().deepCopy(fields()[13].schema(), other.afterImages);
         fieldSetFlags()[13] = true;
+      }
+      if (isValidValue(fields()[14], other.bornTimestamp)) {
+        this.bornTimestamp = data().deepCopy(fields()[14].schema(), other.bornTimestamp);
+        fieldSetFlags()[14] = true;
       }
     }
 
@@ -1204,6 +1237,48 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
       return this;
     }
 
+    /**
+      * Gets the value of the 'bornTimestamp' field.
+      * the timestamp in unit of millisecond that record is born in source
+      * @return The value.
+      */
+    public java.lang.Long getBornTimestamp() {
+      return bornTimestamp;
+    }
+
+    /**
+      * Sets the value of the 'bornTimestamp' field.
+      * the timestamp in unit of millisecond that record is born in source
+      * @param value The value of 'bornTimestamp'.
+      * @return This builder.
+      */
+    public com.alibaba.dts.formats.avro.Record.Builder setBornTimestamp(long value) {
+      validate(fields()[14], value);
+      this.bornTimestamp = value;
+      fieldSetFlags()[14] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'bornTimestamp' field has been set.
+      * the timestamp in unit of millisecond that record is born in source
+      * @return True if the 'bornTimestamp' field has been set, false otherwise.
+      */
+    public boolean hasBornTimestamp() {
+      return fieldSetFlags()[14];
+    }
+
+
+    /**
+      * Clears the value of the 'bornTimestamp' field.
+      * the timestamp in unit of millisecond that record is born in source
+      * @return This builder.
+      */
+    public com.alibaba.dts.formats.avro.Record.Builder clearBornTimestamp() {
+      fieldSetFlags()[14] = false;
+      return this;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public Record build() {
@@ -1227,6 +1302,7 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
         record.fields = fieldSetFlags()[11] ? this.fields : (java.lang.Object) defaultValue(fields()[11]);
         record.beforeImages = fieldSetFlags()[12] ? this.beforeImages : (java.lang.Object) defaultValue(fields()[12]);
         record.afterImages = fieldSetFlags()[13] ? this.afterImages : (java.lang.Object) defaultValue(fields()[13]);
+        record.bornTimestamp = fieldSetFlags()[14] ? this.bornTimestamp : (java.lang.Long) defaultValue(fields()[14]);
         return record;
       } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

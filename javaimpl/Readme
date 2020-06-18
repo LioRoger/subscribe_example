@@ -63,3 +63,6 @@ mvn clean assembly:assembly -Dmaven.test.skip=true
 
 AvroDeserializer 里面的decoder一定不可以重用，这会导致如果上游的avro格式做了变更，比如加字段，重用的decoder会造成内存decodebuffer的复用，导致解析上下文错乱，在blink的使用场景中
 遇到过这个问题，会导致不可恢复的OOM。
+
+update 2020-0618
+更新了avro文件到最新版本，重新编译了解析类。代码先放上来，下周会进行回归测试，发现问题会及时修复

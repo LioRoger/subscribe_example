@@ -436,6 +436,12 @@
             ]
           }
         ]
+      },
+      {
+        "name": "bornTimestamp",
+        "default": 0,
+        "type": "long",
+        "doc": "the timestamp in unit of millisecond that record is born in source"
       }
     ]
   }
