@@ -50,7 +50,7 @@ func DtsDecode(value []byte, message *Message) error {
 	for i, v := range record.Fields.Array {
 		if record.BeforeImages != nil {
 			value := GetSqlValue(v.DataTypeNumber, record.BeforeImages.Array[i])
-			afterColomns[v.Name] = value
+			beforeColomns[v.Name] = value
 		}
 		if record.AfterImages != nil {
 			value := GetSqlValue(v.DataTypeNumber, record.AfterImages.Array[i])
