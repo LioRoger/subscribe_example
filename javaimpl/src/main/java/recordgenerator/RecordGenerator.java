@@ -77,9 +77,11 @@ public class RecordGenerator implements Runnable, Closeable {
                     ConsumerRecords<byte[], byte[]> records = kafkaConsumerWrap.poll();
                     for (ConsumerRecord<byte[], byte[]> record : records) {
                         int offerTryCount = 0;
-                        if (record.value() == null || record.value().length <= 2) {
+                        if (record.value() == null || record.value().length <= 48) {
                             // dStore may generate special mock record to push up consumer offset for next fetchRequest if all data is filtered
                             continue;
+                        } else {
+                            log.info("RecordGenerator: receive record, offset [" + record.offset() + "], value size [" + (record.value() == null ? 0 : record.value().length) + "]" );
                         }
                         while (!recordProcessor.offer(1000, TimeUnit.MILLISECONDS, record) && !existed) {
                             if (++offerTryCount % 10 == 0) {

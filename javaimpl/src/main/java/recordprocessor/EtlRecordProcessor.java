@@ -73,6 +73,10 @@ public class EtlRecordProcessor implements  Runnable, Closeable {
                 }
                 fetchFailedCount = 0;
                 final ConsumerRecord<byte[], byte[]> consumerRecord = toProcess;
+                // 48 means an no op bytes, we use this bytes to push up offset. user should ignore this record
+                if (consumerRecord.value().length == 48) {
+                    continue;
+                }
                 record = fastDeserializer.deserialize(consumerRecord.value());
                 log.debug("EtlRecordProcessor: meet [{}] record type", record.getOperation());
                 for (RecordListener recordListener : recordListeners.values()) {
