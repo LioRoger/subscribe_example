@@ -55,7 +55,7 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
   @Deprecated public int version;
   /** unique id of this record in the whole stream */
   @Deprecated public long id;
-  /** record log timestamp */
+  /** last record log timestamp(in second), in case of no writing event in source, this timestamp will not increase*/
   @Deprecated public long sourceTimestamp;
   /** record source location information */
   @Deprecated public java.lang.String sourcePosition;
@@ -74,7 +74,12 @@ public class Record extends org.apache.avro.specific.SpecificRecordBase implemen
   @Deprecated public java.lang.Object fields;
   @Deprecated public java.lang.Object beforeImages;
   @Deprecated public java.lang.Object afterImages;
-  /** the timestamp in unit of millisecond that record is born in source */
+  /**
+   * the timestamp in unit of second that record is born in source,
+   * in case of no writing event in source, heart beat event will be produced continously, 
+   * bornTimestamp of heatbeat event will be the time when heart beat happens
+   * this can be used to figure out message consume delay even in case of no writing event from source
+   */
   @Deprecated public long bornTimestamp;
 
   /**
